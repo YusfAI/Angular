@@ -1,21 +1,54 @@
-<div class="header">
-    <label for="">search</label>
-    <input type="text" #brand (input)="selectAutos(brand.value)">
+<div class="toolbar">
+  <div class="header">
+    <label for="search">search</label>
+    <input
+      id="search"
+      type="text"
+      placeholder="ex: Audi, Q5, Range…"
+      [value]="query()"
+      (input)="query.set($any($event.target).value)"
+    />
     <fa-icon [icon]="faMagnifyingGlass" />
+  </div>
+
+  <select
+    aria-label="Filter by brand"
+    [value]="brand()"
+    (change)="brand.set($any($event.target).value)"
+  >
+    <option value="">All brands</option>
+    @for (b of brands(); track b) {
+      <option [value]="b">{{ b }}</option>
+    }
+  </select>
+
+  <select aria-label="Sort cars" [value]="sort()" (change)="setSort($any($event.target).value)">
+    <option value="default">Sort: default</option>
+    <option value="price-asc">Price: low → high</option>
+    <option value="price-desc">Price: high → low</option>
+    <option value="power-desc">Power: high → low</option>
+  </select>
 </div>
 
-<div class="cars-container">
-    @for (auto of selectedAutos; track auto.id) {
-        <div class="auto-card">
-            <img [src]="'images/' + auto.photo" [alt]="">
+<p class="result-count">{{ selectedAutos().length }} of {{ autos().length }} cars</p>
 
-            <h3>{{ auto.brand }} {{ auto.model }}</h3>
-            <p> Power : {{ auto.power }} HP</p>
-            <p> Price : {{ auto.price }} TND</p>
-            <p> only : {{auto.availability}} UNITS </p>
-            <div class="see_more">
-                <button (click)="selectCar(auto)">See More...</button>
-            </div>
-        </div>
-    }
+<div class="cars-container">
+  @for (auto of selectedAutos(); track auto.id) {
+    <div class="auto-card">
+      <img [src]="'images/' + auto.photo" [alt]="auto.brand + ' ' + auto.model" loading="lazy" />
+
+      <h3>{{ auto.brand }} {{ auto.model }}</h3>
+      <p>Fiscal power: {{ auto.power }} CV</p>
+      <p>Price: {{ auto.price }} k TND</p>
+      <p [class.low-stock]="auto.availability <= 3">Only {{ auto.availability }} units left</p>
+      <div class="see_more">
+        <button type="button" (click)="selectCar(auto)">See more…</button>
+      </div>
+    </div>
+  } @empty {
+    <div class="empty">
+      <p>No car matches your search.</p>
+      <button type="button" (click)="reset()"><fa-icon [icon]="faXmark" /> Clear filters</button>
+    </div>
+  }
 </div>

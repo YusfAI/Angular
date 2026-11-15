@@ -5,8 +5,7 @@ describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
-    })
-      .compileComponents();
+    }).compileComponents();
   });
 
   it('should create the app', () => {
@@ -19,6 +18,13 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, showroom-auto');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Welcome to My Showroom');
+  });
+
+  it('should list every car on first load', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const cards = (fixture.nativeElement as HTMLElement).querySelectorAll('.auto-card');
+    expect(cards.length).toBe(fixture.componentInstance.autolist.length);
   });
 });
