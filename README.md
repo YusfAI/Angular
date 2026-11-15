@@ -29,8 +29,8 @@ A car showroom web app built with **Angular 22**. You can browse a catalogue of 
 Requires **Node.js 20+** and npm.
 
 ```bash
-git clone https://github.com/YusfAI/Angular.git
-cd Angular
+git clone https://github.com/YusfAI/showroom-auto.git
+cd showroom-auto
 npm install
 npm start          # http://localhost:4200
 ```
