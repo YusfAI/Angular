@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   imports: [],
@@ -6,4 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './head-bar.css',
   templateUrl: './head-bar.html',
 })
-export class HeadBar {}
+export class HeadBar {
+  readonly title = input('My Showroom');
+  readonly carCount = input(0);
+}

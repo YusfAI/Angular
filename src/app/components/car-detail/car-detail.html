@@ -1,0 +1,36 @@
+<div class="backdrop" (click)="close()"></div>
+
+<section
+  class="modal"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-label]="car().brand + ' ' + car().model"
+>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <fa-icon [icon]="faXmark" />
+  </button>
+
+  <img [src]="'images/' + car().photo" [alt]="car().brand + ' ' + car().model" />
+
+  <div class="content">
+    <p class="brand">{{ car().brand }}</p>
+    <h2>{{ car().model }}</h2>
+
+    <dl class="specs">
+      <div>
+        <dt>Price</dt>
+        <dd>{{ car().price }} k TND</dd>
+      </div>
+      <div>
+        <dt>Fiscal power</dt>
+        <dd>{{ car().power }} CV</dd>
+      </div>
+      <div>
+        <dt>In stock</dt>
+        <dd>{{ car().availability }} units</dd>
+      </div>
+    </dl>
+
+    <p class="description">{{ car().description }}</p>
+  </div>
+</section>
